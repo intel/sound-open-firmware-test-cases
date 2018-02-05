@@ -43,7 +43,7 @@ feature_test () {
 
 feature_test_list(){
 
-	#feature_test information_detection verify_DSP_firmware_presence
+#	feature_test information_detection verify_DSP_firmware_presence
 	feature_test information_detection verify_DSP_firmware_load
 	feature_test information_detection verify_DSP_topology_load
 	feature_test information_detection verify_DSP_firmware_version_info
@@ -57,10 +57,10 @@ feature_test_list(){
 	feature_test information_detection verify_DSP_playback_pcm_list
 	feature_test information_detection Audio_device_check
 	feature_test loadable_DSP_modules check_48k16bit_passthrough_playback_function
-	feature_test information_detection check_modules_unloadable
-	feature_test loadable_DSP_modules check_modules_loading_time
-	feature_test loadable_DSP_modules check_modules_reloadable
-	feature_test loadable_DSP_modules check_playback_after_modules_reloaded
+#	feature_test information_detection check_modules_unloadable
+#	feature_test loadable_DSP_modules check_modules_loading_time
+#	feature_test loadable_DSP_modules check_modules_reloadable
+#	feature_test loadable_DSP_modules check_playback_after_modules_reloaded
 #	feature_test loadable_DSP_modules check_48k16bit_passthrough_playback_function
 #	feature_test PCM_playback check_playback_function
 	feature_test PCM_playback 48k16bit_passthrough_channel_test
