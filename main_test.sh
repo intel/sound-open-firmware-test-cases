@@ -6,7 +6,7 @@ fi
 current_path=`pwd`
 feature_pass=0
 feature_cnt=0
-test_type="full_test"
+test_type="functionality_test"
 
 feature_test () {
 
@@ -15,7 +15,7 @@ feature_test () {
 	test_case=$2
 	log_file=$current_path/sof_test.log
 	if [ $test_suit == "PCM_playback" ] || [ $test_suit == "pulseaudio" ]; then
-		bash $current_path/functionality_test/$test_case.sh # run test
+		bash $current_path/$test_type/$test_case.sh # run test
 		cat playback.log | while read line
 		do
         		test_case=`echo $line|awk -F " " '{ print $1}'`
@@ -28,7 +28,7 @@ feature_test () {
         		fi
 		done
 	else			 
-		bash $current_path/test_scripts/$test_case.sh # run test
+		bash $current_path/$test_type/$test_case.sh # run test
 		if [ $? -eq 0 ]; then
 			feature_pass=$((feature_pass+1))
 			echo "$test_case PASS"
