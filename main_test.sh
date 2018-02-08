@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -a sof_test.log ]; then
+if [ -f sof_test.log ]; then
 	rm -rf sof_test.log
 fi
 
@@ -43,7 +43,7 @@ feature_test () {
 
 feature_test_list(){
 
-#	feature_test information_detection verify_DSP_firmware_presence
+	feature_test information_detection verify_DSP_firmware_presence
 	feature_test information_detection verify_DSP_firmware_load
 	feature_test information_detection verify_DSP_topology_load
 	feature_test information_detection verify_DSP_firmware_version_info
@@ -51,24 +51,24 @@ feature_test_list(){
 	feature_test information_detection estimate_firmware_loaded_time
 	feature_test information_detection verify_DSP_sound_modules
 	feature_test information_detection verify_DSP_playback_pcm0_info
-#	feature_test information_detection verify_DSP_playback_pcm1_info
 	feature_test information_detection capture_pcm_list
 	feature_test information_detection verify_DSP_capture_info
 	feature_test information_detection verify_DSP_playback_pcm_list
 	feature_test information_detection Audio_device_check
-	feature_test loadable_DSP_modules check_48k16bit_passthrough_playback_function
+	feature_test loadable_DSP_modules check_48k16bit_passthrough_playback
 #	feature_test information_detection check_modules_unloadable
 #	feature_test loadable_DSP_modules check_modules_loading_time
 #	feature_test loadable_DSP_modules check_modules_reloadable
 #	feature_test loadable_DSP_modules check_playback_after_modules_reloaded
-#	feature_test loadable_DSP_modules check_48k16bit_passthrough_playback_function
-#	feature_test PCM_playback check_playback_function
-	feature_test PCM_playback 48k16bit_passthrough_channel_test
-#	feature_test PCM_playback channel_test
+	feature_test PCM_playback check_48k16bit_passthrough_playback
+	feature_test PCM_playback check_line_in_out_playback_function
+	feature_test PCM_playback single_channel_playback_test
+	feature_test PCM_playback two_channels_playback_test
 #	feature_test pause_resume check_media_pipeline_pause_resume
 #	feature_test pause_resume check_low_latency_pipeline_pause_resume
-	feature_test pause_resume check_passthrough_pipeline_pause_resume
-	#feature_test pulseaudio	check_passthrough_pulseaudio_playback_function
+#	feature_test pause_resume check_passthrough_pipeline_pause_resume
+	feature_test pulseaudio check_passthrough_pulseaudio_playback_function
+	feature_test pulseaudio	check_passthrough_pulseaudio_capture_function
 	feature_test volume_control get_mixer_properties
 	feature_test volume_control set_HP_volume_to_minimum
 	feature_test volume_control set_HP_volume_to_maximum
@@ -77,7 +77,7 @@ feature_test_list(){
 }
 
 function main(){
-	alsactl restore -f $current_path/asound_state/asound.state-1.0-passthrough-16bit # alsa setting
+	alsactl restore -f $current_path/asound_state/asound.state.passthrough # alsa setting
         sleep 5
 	feature_test_list
 }

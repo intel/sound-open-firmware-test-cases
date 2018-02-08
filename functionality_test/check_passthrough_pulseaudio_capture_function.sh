@@ -1,4 +1,4 @@
-# Check playback function
+# Check capture function
 /usr/bin/pulseaudio --start
 if [ $? != 0 ]; then
 	echo "Fail: start pulseaudio server failed"
@@ -8,15 +8,15 @@ else
 fi
 sleep 2
 
-alsactl restore -f asound_state/asound.state.pulse-p
+alsactl restore -f asound_state/asound.state.pulse-c
 sleep 2
 rm -rf playback.log
 #inputsample=(8000 11025 12000 16000 18900 22050 24000 32000 44100 48000 64000 88200 96000 176400 192000)
-alsabat -Ppulse -r 48000 -c 2 -F 1500 -Chw:0,0
+alsabat -Phw:0,0 -r 48000 -c 2 -F 1500 -Cpulse
 if [ $? != 0 ]; then
-	echo "Fail: pulseaudio playback failed with passthrough pipeline."
-	echo "Check_pulseaudio_Playback FAIL" >> playback.log
+	echo "Fail: pulseaudio capture failed with passthrough pipeline."
+	echo "Check_pulseaudio_capture FAIL" >> playback.log
 else
-	echo "Check_pulseaudio_Playback PASS" >> playback.log
+	echo "Check_pulseaudio_capture PASS" >> playback.log
 fi
 
