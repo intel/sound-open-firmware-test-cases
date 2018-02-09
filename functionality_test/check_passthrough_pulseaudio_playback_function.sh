@@ -1,11 +1,5 @@
 # Check playback function
-/usr/bin/pulseaudio --start
-if [ $? != 0 ]; then
-	echo "Fail: start pulseaudio server failed"
-	echo "start pulseaudio server: FAIL" >> playback.log
-else 
-	echo "Pass: start pulseaudio server passed"
-fi
+/usr/bin/pulseaudio --system &
 sleep 2
 
 alsactl restore -f asound_state/asound.state.pulse-p
