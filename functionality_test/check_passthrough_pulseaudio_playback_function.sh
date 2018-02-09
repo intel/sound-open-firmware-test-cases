@@ -1,6 +1,6 @@
 # Check playback function
 /usr/bin/pulseaudio --system &
-sleep 2
+sleep 10
 
 alsactl restore -f asound_state/asound.state.pulse-p
 sleep 2

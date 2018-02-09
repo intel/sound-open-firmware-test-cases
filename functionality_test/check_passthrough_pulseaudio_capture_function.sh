@@ -1,6 +1,11 @@
 # Check capture function
-/usr/bin/pulseaudio --system &
-sleep 2
+ps -aux |grep pulseaudio
+if [ $? != 0 ]; then
+	usr/bin/pulseaudio --system &
+	sleep 10
+else
+    echo "Pass: start pulseaudio server passed"
+fi
 alsactl restore -f asound_state/asound.state.pulse-c
 sleep 2
 rm -rf playback.log
