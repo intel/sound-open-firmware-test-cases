@@ -45,10 +45,10 @@ feature_test_list(){
 
 	feature_test information_detection verify_sof_firmware_presence
 	feature_test information_detection verify_sof_firmware_load
-	feature_test information_detection verify_topology_load
+#	feature_test information_detection verify_topology_load
 	feature_test information_detection verify_sof_firmware_version_info
 	feature_test information_detection playack_pcm_list
-	feature_test information_detection estimate_firmware_loaded_time
+#	feature_test information_detection estimate_firmware_loaded_time
 	feature_test information_detection verify_sound_modules
 	feature_test information_detection verify_playback_pcm0_info
 	feature_test information_detection capture_pcm_list
@@ -67,8 +67,8 @@ feature_test_list(){
 #	feature_test pause_resume check_media_pipeline_pause_resume
 #	feature_test pause_resume check_low_latency_pipeline_pause_resume
 #	feature_test pause_resume check_passthrough_pipeline_pause_resume
-	feature_test pulseaudio check_passthrough_pulseaudio_playback_function
-	feature_test pulseaudio	check_passthrough_pulseaudio_capture_function
+#	feature_test pulseaudio check_passthrough_pulseaudio_playback_function
+#	feature_test pulseaudio	check_passthrough_pulseaudio_capture_function
 	feature_test volume_control get_mixer_properties
 	feature_test volume_control set_HP_volume_to_minimum
 	feature_test volume_control set_HP_volume_to_maximum
