@@ -74,6 +74,7 @@ feature_test_list(){
 	feature_test volume_control set_HP_volume_to_maximum
 	feature_test volume_control set_ADC_volume_to_minimum
 	feature_test volume_control set_ADC_volume_to_maximum
+	feature_test dma_trace check_dma_trace
 }
 
 function main(){
