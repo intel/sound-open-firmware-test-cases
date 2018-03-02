@@ -80,7 +80,6 @@ function main(){
 	alsactl restore -f $current_path/asound_state/asound.state.passthrough # alsa setting
         sleep 5
 	feature_test_list
-	exit 0
 }
 
 main
