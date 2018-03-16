@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat /proc/asound/bytrt5651/pcm3p/info > /dev/null
+cat /proc/asound/sofbytrt5651/pcm3p/info > /dev/null
 if [ $? -ne 0 ]; then
         echo "Fail: DSP PCM3 info doesnot match"
         exit 1

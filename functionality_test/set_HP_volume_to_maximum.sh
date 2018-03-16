@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Get mixer properties
-amixer -D hw:bytcrrt5651 sset 'HP' 39 > /dev/null
+amixer -D hw:sofbytcrrt5651 sset 'HP' 39 > /dev/null
 if [ $? -ne 0 ]; then
 	echo "set HP volume to maximum FAIL"
 	exit 1
