@@ -1,0 +1,8 @@
+sof_acpi_dev
+snd_soc_acpi_intel_match
+snd_sof_intel_byt
+snd_sof_intel_bdw
+snd_sof_intel_hsw
+snd_sof
+snd_soc_sst_bytcr_rt5651
+snd_soc_acpi

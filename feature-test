@@ -1,0 +1,9 @@
+PCM_playback check_"$PIPELINE"_playback
+PCM_playback check_"$PIPELINE"_line_in_out_playback
+PCM_playback check_"$PIPELINE"_single_channel_playback_test
+PCM_playback check_"$PIPELINE"_dual_channels_playback_test
+volume_control get_mixer_properties
+volume_control set_HP_volume_to_minimum
+volume_control set_HP_volume_to_maximum
+volume_control set_ADC_volume_to_minimum
+volume_control set_ADC_volume_to_maximum
