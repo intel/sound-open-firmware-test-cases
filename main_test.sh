@@ -62,7 +62,7 @@ feature_test_list(){
 #	feature_test loadable_DSP_modules check_playback_after_modules_reloaded
 	feature_test PCM_playback check_48k16bit_passthrough_playback
 	feature_test PCM_playback check_line_in_out_playback_function
-	feature_test PCM_playback single_channel_playback_test
+#	feature_test PCM_playback single_channel_playback_test
 	feature_test PCM_playback two_channels_playback_test
 #	feature_test pause_resume check_media_pipeline_pause_resume
 #	feature_test pause_resume check_low_latency_pipeline_pause_resume
