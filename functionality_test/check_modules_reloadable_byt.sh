@@ -15,7 +15,7 @@ sleep 2
 modprobe sof_acpi_dev
 if [ $? != 0 ]; then
 	echo "modules reload failed"
-	return 1
+	exit 1
 else
 	echo "modules reload passed"
 fi
