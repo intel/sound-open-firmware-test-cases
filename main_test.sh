@@ -92,7 +92,7 @@ feature_test_common_list(){
 
 feature_test_list() {
 
-	echo "now is testing $SSP-$MODE-$PIPELINE_$FORMAT_INPUT-$FORMAT_INPUT-$RATE-$MCLK-$CODEC tplg" >> $CURRENT_PATH/sof_test.log
+	echo "now is testing $SSP-$MODE-$PIPELINE-"$FORMAT_INPUT"-"$FORMAT_OUTPUT"-$RATE-$MCLK-$CODEC tplg" >> $CURRENT_PATH/sof_test.log
 	while read line
 	do
 		feature_test $line
@@ -125,9 +125,10 @@ run_test() {
 		feature_test loadable_DSP_modules check_modules_reloadable_$PLATFORM
 		if [ $? == 0 ]; then
 			sleep 10
+			alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 			feature_test_list
 		else
-			echo "modules reload failed on $SSP-$MODE-$FORMAT_INPUT-$FORMAT_INPUT-$RATE-$MCLK-$CODEC tplg" >> $CURRENT_PATH/sof_test.log
+			echo "modules reload failed on $SSP-$MODE-"$FORMAT_INPUT"-"$FORMAT_INPUT"-$RATE-$MCLK-$CODEC tplg" >> $CURRENT_PATH/sof_test.log
 		fi
 	done < ./$PLATFORM/tplg
 
@@ -135,7 +136,7 @@ run_test() {
 
 function main(){
         sleep 5
+	alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 	get_platform
-	alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.passthrough # alsa setting
 }
 main
