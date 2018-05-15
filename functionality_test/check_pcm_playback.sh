@@ -26,11 +26,9 @@ do
 		if [ $? != 0 ]; then
 			echo "Fail: playback failed with "$PIPELINE_TYPE" pipeline."
 			echo "Check_"$PIPELINE_TYPE"_Playback_"$RATE"_format_"$FORMAT"_freq_"$freq" FAIL" >> playback.log
-			exit 1
 		else
 			echo "Check_"$PIPELINE_TYPE"_Playback_"$RATE"_format_"$FORMAT"_freq_"$freq" PASS" >> playback.log
-			echo "Check_"$PIPELINE_TYPE"_Capture_"$RATE"_format_"$FORMAT"_freq_"freq" PASS" >> playback.log
+			echo "Check_"$PIPELINE_TYPE"_Capture_"$RATE"_format_"$FORMAT"_freq_"$freq" PASS" >> playback.log
 		fi
 done
 
-exit 0
