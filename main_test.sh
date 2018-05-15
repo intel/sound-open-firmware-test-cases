@@ -32,7 +32,7 @@ get_platform() {
 	if [ $BIOS_VER == "MNW" ]; then
 		PLATFORM="byt"
 		feature_test_common_list
-	elif [ $BIOS_VER == "APL" ]; then
+	elif [ $BIOS_VER == "APL" ] || [ $BIOS_VER == "UPA" ]; then
 		PLATFORM="apl"
 		MCLK=24576K
 		feature_test_common_list
