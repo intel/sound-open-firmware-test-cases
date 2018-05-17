@@ -57,7 +57,7 @@ feature_test () {
 		do
 			TEST_CASE=`echo $line|awk -F " " '{ print $1}'`
         		if [[ $line =~ FAIL ]]; then
-				echo "$TES_CASE FAIL"
+				echo "$TEST_CASE FAIL"
 				echo "testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE"_testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/sof_test.log
         		else
 				echo "$TEST_CASE PASS"
