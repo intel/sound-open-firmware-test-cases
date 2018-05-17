@@ -6,7 +6,7 @@ do
 	rmmod $line
 	if [ $? != 0 ]; then
 		echo "modules unload failed: $line"
-		return 1
+		exit 1
 	fi
 done < apl/apl.modules
 
