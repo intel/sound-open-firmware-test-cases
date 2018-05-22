@@ -23,20 +23,16 @@ CODEC=codec
 # get platform info
 
 get_platform() {
-        which dmidecode
-        if [ $? != 0 ]; then
-		echo "no dmidecode command found, failed to get platform info"
-		exit 1
-	fi
-	BIOS_VER=`dmidecode -t bios |grep Version |awk -F : '{print $2}' |cut -b 2-4`
-	if [ $BIOS_VER == "MNW" ]; then
+
+	MOD_VER=`lscpu |grep "Model name" |awk -F " " '{print $6}'`
+	if [ $MOD_VER == "E3826" ]; then
 		PLATFORM="byt"
 		feature_test_common_list
-	elif [ $BIOS_VER == "APL" ] || [ $BIOS_VER == "UPA" ]; then
+	elif [ $MOD_VER == "A3960" ] || [ $MOD_VER == "N4200" ]; then
 		PLATFORM="apl"
 		MCLK=24576K
 		feature_test_common_list
-	elif [ $BIOS_VER == "CNL" ]; then
+	elif [ $MOD_VER == "0000" ]; then
 		PLATFORM="cnl"
 		MCLK=24000K
 		feature_test_common_list
