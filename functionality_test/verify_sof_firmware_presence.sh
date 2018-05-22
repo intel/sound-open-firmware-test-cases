@@ -1,11 +1,11 @@
 #!/bin/sh
 
-BIOS_VER=`dmidecode -t bios |grep Version |awk -F : '{print $2}' |cut -b 2-4`
-if [ $BIOS_VER == "MNW" ]; then
+MOD_VER=`lscpu |grep "Model name" |awk -F " " '{print $6}'`
+if [ $MOD_VER == "E3826" ]; then
 	PLATFORM="byt"
-elif [ $BIOS_VER == "APL" ] || [ $BIOS_VER == "UPA" ]; then
+elif [ $MOD_VER == "A3960" ] || [ $MOD_VER == "N4200" ]; then
 	PLATFORM="apl"
-elif [ $BIOS_VER == "CNL" ]; then
+elif [ $MOD_VER == "0000" ]; then
 	PLATFORM="cnl"
 fi
 
