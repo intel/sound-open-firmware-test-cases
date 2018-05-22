@@ -112,11 +112,11 @@ run_test() {
 
 		# relink the tplg
 		if [ $PLATFORM == "byt" ]; then
-			ln -fs $FIRMWARE_PATH/$line $FIRMWARE_PATH/sof-$PLATFORM-rt5651.tplg
+			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-rt5651.tplg
 		elif [ $PLATFORM == "apl" ]; then
-			ln -fs $FIRMWARE_PATH/$line $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
+			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
 		else
-			ln -fs $FIRMWARE_PATH/$line $FIRMWARE_PATH/sof-$PLATFORM.tplg
+			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM.tplg
 		fi
 		feature_test loadable_DSP_modules check_modules_reloadable_$PLATFORM
 		if [ $? == 0 ]; then
