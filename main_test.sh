@@ -27,13 +27,20 @@ get_platform() {
 	MOD_VER=`lscpu |grep "Model name" |awk -F " " '{print $6}'`
 	if [ $MOD_VER == "E3826" ]; then
 		PLATFORM="byt"
+		MACHINE="minnow"
 		feature_test_common_list
-	elif [ $MOD_VER == "A3960" ] || [ $MOD_VER == "N4200" ]; then
+	elif [ $MOD_VER == "A3960" ]; then
 		PLATFORM="apl"
+		MACHINE="gp"
 		MCLK=24576K
 		feature_test_common_list
+	elif [ $MOD_VER == "N4200" ]; then
+		PLATFORM="apl"
+		MACHINE="up"
+                MCLK=24576K
 	elif [ $MOD_VER == "0000" ]; then
 		PLATFORM="cnl"
+		MACHINE="cnl"
 		MCLK=24000K
 		feature_test_common_list
 	else
@@ -92,7 +99,7 @@ feature_test_list() {
 	while read line
 	do
 		feature_test $line
-	done < ./$PLATFORM/feature-test
+	done < ./$PLATFORM/$MACHINE/feature-test
 }
 
 run_test() {
@@ -111,9 +118,11 @@ run_test() {
 		CODEC=`echo $line |awk -F "-" '{print $9}'`
 
 		# relink the tplg
-		if [ $PLATFORM == "byt" ]; then
+		if [ $PLATFORM == "byt" -a $MACHINE == "minnow" ]; then
 			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-rt5651.tplg
-		elif [ $PLATFORM == "apl" ]; then
+		elif [ $PLATFORM == "apl" -a $MACHINE == "gp" ]; then
+			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
+		elif [ $PLATFORM == "apl" -a  $MACHINE == "up"]; then
 			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
 		else
 			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM.tplg
@@ -126,7 +135,7 @@ run_test() {
 		else
 			echo "modules reload failed on $SSP-$MODE-"$FORMAT_INPUT"-"$FORMAT_INPUT"-$RATE-$MCLK-$CODEC tplg" >> $CURRENT_PATH/sof_test.log
 		fi
-	done < ./$PLATFORM/tplg
+	done < ./$PLATFORM/$MACHINE/tplg
 
 }
 

@@ -1,0 +1,4 @@
+test-ssp5-I2S-passthrough-s16le-s16le-48k-24576k-nocodec.tplg
+test-ssp5-I2S-passthrough-s32le-s32le-48k-24576k-nocodec.tplg
+test-ssp5-I2S-volume-s16le-s16le-48k-24576k-nocodec.tplg
+test-ssp5-I2S-volume-s16le-s32le-48k-24576k-nocodec.tplg
