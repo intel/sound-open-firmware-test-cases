@@ -61,10 +61,10 @@ feature_test () {
 			TEST_CASE=`echo $line|awk -F " " '{ print $1}'`
         		if [[ $line =~ FAIL ]]; then
 				echo "$TEST_CASE FAIL"
-				echo "testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE"_testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/sof_test.log
+				echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/sof_test.log
         		else
 				echo "$TEST_CASE PASS"
-				echo "testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE"_testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/sof_test.log
+				echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/sof_test.log
         		fi
 		done
 	else			 
@@ -72,10 +72,10 @@ feature_test () {
 		if [ $? -eq 0 ]; then
 			FEATURE_PASS=$((FEATURE_PASS+1))
 			echo "$TEST_CASE PASS"
-			echo "testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/sof_test.log
+			echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/sof_test.log
 		else
 			echo "$TEST_CASE FAIL"
-			echo "testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/sof_test.log
+			echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/sof_test.log
 		fi
 	fi
 	sleep 2
