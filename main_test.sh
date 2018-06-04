@@ -38,6 +38,7 @@ get_platform() {
 		PLATFORM="apl"
 		MACHINE="up"
                 MCLK=24576K
+		feature_test_common_list
 	elif [ $MOD_VER == "0000" ]; then
 		PLATFORM="cnl"
 		MACHINE="cnl"
