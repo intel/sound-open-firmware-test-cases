@@ -95,8 +95,11 @@ feature_test_common_list(){
 }
 
 feature_test_list() {
+	tplg_file=`find $FIRMWARE_PATH -name "sof-*.tplg"`
+	link_path=`readlink $tplg_file`
+	link_file=${link_path#*/}
 
-	echo "now is testing $SSP-$MODE-$PIPELINE-"$FORMAT_INPUT"-"$FORMAT_OUTPUT"-$RATE-$MCLK-$CODEC tplg" >> $CURRENT_PATH/sof_test.log
+	echo "now is testing $link_file" >> $CURRENT_PATH/sof_test.log
 	while read line
 	do
 		feature_test $line
