@@ -148,4 +148,5 @@ function main(){
 	alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 	get_platform
 }
-main
+#Audio CI call main function for testing
+#main
