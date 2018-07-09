@@ -14,10 +14,10 @@ FIRMWARE_PATH="/lib/firmware/intel"
 SSP=ssp2
 MODE=I2S
 PIPELINE=passthrough
-FORMAT_INPUT=s16_le
-FORMAT_OUTPUT=s16_le
-RATE=48K
-MCLK=19200K
+FORMAT_INPUT=s16le
+FORMAT_OUTPUT=s16le
+RATE=48k
+MCLK=19200k
 CODEC=codec
 
 # get platform info
@@ -32,17 +32,17 @@ get_platform() {
 	elif [ $MOD_VER == "A3960" ]; then
 		PLATFORM="apl"
 		MACHINE="gp"
-		MCLK=24576K
+		MCLK=24576k
 		feature_test_common_list
 	elif [ $MOD_VER == "N4200" ]; then
 		PLATFORM="apl"
 		MACHINE="up"
-                MCLK=24576K
+                MCLK=24576k
 		feature_test_common_list
 	elif [ $MOD_VER == "0000" ]; then
 		PLATFORM="cnl"
 		MACHINE="cnl"
-		MCLK=24000K
+		MCLK=24000k
 		feature_test_common_list
 	else
 		echo "no matched platform, please confirm it"
@@ -54,6 +54,7 @@ feature_test () {
 	FEATURE_CUT=$((FEATURE_CNT+1))
 	TEST_SUIT=$1
 	TEST_CASE=$2
+	TEST_PARA=$3
 	LOG_FILE=$CURRENT_PATH/sof_test.log
 	if [ $TEST_SUIT == "PCM_playback" ] || [ $TEST_SUIT == "pulseaudio" ]; then
 		bash $CURRENT_PATH/$TEST_TYPE/$TEST_CASE.sh $RATE $FORMAT_INPUT $PIPELINE $PLATFORM # run test
@@ -69,7 +70,7 @@ feature_test () {
         		fi
 		done
 	else			 
-		bash $CURRENT_PATH/$TEST_TYPE/$TEST_CASE.sh # run test
+		bash $CURRENT_PATH/$TEST_TYPE/$TEST_CASE.sh $TEST_PARA # run test
 		if [ $? -eq 0 ]; then
 			FEATURE_PASS=$((FEATURE_PASS+1))
 			echo "$TEST_CASE PASS"
@@ -113,25 +114,26 @@ run_test() {
 	do
 		# parse the tplg
 		SSP=`echo $line |awk -F "-" '{print $2}'`
-		MODE=`echo $line |awk -F "-" '{print $3}'`
-		PIPELINE=`echo $line |awk -F "-" '{print $4}'`
-		FORMAT_INPUT=`echo $line |awk -F "-" '{print $5}'`
-		FORMAT_OUTPUT=`echo $line |awk -F "-" '{print $6}'`
-		RATE=`echo $line |awk -F "-" '{print $7}'`
-		MCLK=`echo $line |awk -F "-" '{print $8}'`
-		CODEC=`echo $line |awk -F "-" '{print $9}'`
+		MODE=`echo $line |awk -F "-" '{print $5}'`
+		PIPELINE=`echo $line |awk -F "-" '{print $6}'`
+		FORMAT_INPUT=`echo $line |awk -F "-" '{print $7}'`
+		FORMAT_OUTPUT=`echo $line |awk -F "-" '{print $8}'`
+		RATE=`echo $line |awk -F "-" '{print $9}'`
+		MCLK=`echo $line |awk -F "-" '{print $10}'`
+		CODEC=`echo $line |awk -F "-" '{print $11}'`
 
 		# relink the tplg
 		if [ $PLATFORM == "byt" -a $MACHINE == "minnow" ]; then
 			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-rt5651.tplg
 		elif [ $PLATFORM == "apl" -a $MACHINE == "gp" ]; then
 			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
-		elif [ $PLATFORM == "apl" -a  $MACHINE == "up"]; then
+		elif [ $PLATFORM == "apl" -a  $MACHINE == "up" ]; then
 			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
 		else
 			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM.tplg
 		fi
-		feature_test loadable_DSP_modules check_modules_reloadable_$PLATFORM
+
+		feature_test loadable_DSP_modules modules_reload $PLATFORM
 		if [[ $? =~ PASS ]]; then
 			sleep 10
 			alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting

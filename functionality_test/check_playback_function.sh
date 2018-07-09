@@ -2,7 +2,7 @@
 rm -rf playback.log
 #inputsample=(8000 11025 12000 16000 18900 22050 24000 32000 44100 48000 64000 88200 96000 176400 192000)
 inputsample=(8000, 16000, 24000, 32000, 44100, 48000)
-bitlist=(U8 S16_LE S24_LE S32_LE)
+bitlist=(U8 S16_LE S24_3LE S32_LE)
 # Check Media Playback Pipeline
 for samplerate in ${inputsample[*]};do
 	for bit in ${bitlist[*]}; do
@@ -16,7 +16,7 @@ for samplerate in ${inputsample[*]};do
 	done
 done
 # Check Low Latency Playback Pipeline
-for bit in S16_LE S24_LE S32_LE ; do
+for bit in S16_LE S24_3LE S32_LE ; do
 	alsabat -D hw:0,0 -r 48000 -c 2 -f $bit
 	if [ $? != 0 ]; then
 		echo "Fail: playback failed with low latency pipeline."
