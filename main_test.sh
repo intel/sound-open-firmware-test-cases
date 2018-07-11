@@ -132,7 +132,7 @@ run_test() {
 			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM.tplg
 		fi
 		feature_test loadable_DSP_modules check_modules_reloadable_$PLATFORM
-		if [ $? == 0 ]; then
+		if [[ $? =~ PASS ]]; then
 			sleep 10
 			alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 			feature_test_list
