@@ -1,7 +1,0 @@
-sof_pci_dev
-snd_sof_nocodec
-snd_sof_intel_byt
-snd_sof_intel_hda_common
-snd_sof
-snd_soc_acpi
-snd_soc_core

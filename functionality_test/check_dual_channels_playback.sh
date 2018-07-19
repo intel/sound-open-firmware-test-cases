@@ -1,14 +1,14 @@
 # Check two channel playabck function
 rm -rf playback.log
 RATE=$1
-if [ $RATE == "48K" ]; then
+if [ $RATE == "48k" ]; then
 	RATE=48000
 fi
 FORMAT=$2
 if [ $FORMAT == "s16le" ]; then
 	FORMAT=dat
 elif [ $FORMAT == "s24le" ]; then
-	FORMAT=S24_LE
+	FORMAT=S24_3LE
 elif [ $FORMAT == "s32le" ]; then
 	FORMAT=S32_LE
 fi
