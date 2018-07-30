@@ -134,7 +134,7 @@ run_test() {
 		fi
 
 		feature_test loadable_DSP_modules modules_reload $PLATFORM
-		if [[ $? =~ PASS ]]; then
+		if [[ $? == 0 ]]; then
 			sleep 10
 			alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 			feature_test_list
