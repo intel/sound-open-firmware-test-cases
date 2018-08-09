@@ -25,7 +25,7 @@ CODEC=codec
 get_platform() {
 
 	MOD_VER=`lscpu |grep "Model name" |awk -F " " '{print $6}'`
-	if [ $MOD_VER == "E3826" ]; then
+	if [ $MOD_VER == "E3826" ] || [ $MOD_VER == "E3845" ]; then
 		PLATFORM="byt"
 		MACHINE="minnow"
 		feature_test_common_list
