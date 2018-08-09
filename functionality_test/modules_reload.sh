@@ -37,7 +37,7 @@ err_check()
 }
 
 # reload audio modules
-insert()
+insert(){
 RELOAD_MODULE=(snd_soc_rt5670 snd_soc_rt5645 snd_soc_rt5651 snd_soc_rt5640 snd_soc_da7213 snd_soc_pcm512x_i2c snd_soc_tdf8532 sof_acpi_dev sof_pci_dev)
 	for module in ${RELOAD_MODULE[@]}
 	do
