@@ -9,7 +9,7 @@ FORMAT=$2
 if [ $FORMAT == "s16le" ]; then
 	FORMAT=dat
 elif [ $FORMAT == "s24le" ]; then
-	FORMAT=S24_3LE
+	FORMAT=S24_LE
 elif [ $FORMAT == "s32le" ]; then
 	FORMAT=S32_LE
 fi

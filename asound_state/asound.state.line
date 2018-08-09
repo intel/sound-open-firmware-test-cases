@@ -2,8 +2,8 @@ state.sofbytcrrt5651 {
 	control.1 {
 		iface MIXER
 		name 'HP Playback Volume'
-		value.0 25
-		value.1 25
+		value.0 21
+		value.1 21
 		comment {
 			access 'read write'
 			type INTEGER
@@ -11,15 +11,15 @@ state.sofbytcrrt5651 {
 			range '0 - 39'
 			dbmin -4650
 			dbmax 1200
-			dbvalue.0 -900
-			dbvalue.1 -900
+			dbvalue.0 -1500
+			dbvalue.1 -1500
 		}
 	}
 	control.2 {
 		iface MIXER
 		name 'OUT Playback Volume'
-		value.0 29
-		value.1 29
+		value.0 24
+		value.1 24
 		comment {
 			access 'read write'
 			type INTEGER
@@ -27,8 +27,8 @@ state.sofbytcrrt5651 {
 			range '0 - 39'
 			dbmin -4650
 			dbmax 1200
-			dbvalue.0 -300
-			dbvalue.1 -300
+			dbvalue.0 -1050
+			dbvalue.1 -1050
 		}
 	}
 	control.3 {
@@ -105,8 +105,8 @@ state.sofbytcrrt5651 {
 	control.8 {
 		iface MIXER
 		name 'IN Capture Volume'
-		value.0 21
-		value.1 21
+		value.0 16
+		value.1 16
 		comment {
 			access 'read write'
 			type INTEGER
@@ -114,8 +114,8 @@ state.sofbytcrrt5651 {
 			range '0 - 31'
 			dbmin -3450
 			dbmax 1200
-			dbvalue.0 -300
-			dbvalue.1 -300
+			dbvalue.0 -1050
+			dbvalue.1 -1050
 		}
 	}
 	control.9 {
@@ -132,8 +132,8 @@ state.sofbytcrrt5651 {
 	control.10 {
 		iface MIXER
 		name 'ADC Capture Volume'
-		value.0 47
-		value.1 47
+		value.0 106
+		value.1 106
 		comment {
 			access 'read write'
 			type INTEGER
@@ -141,8 +141,8 @@ state.sofbytcrrt5651 {
 			range '0 - 127'
 			dbmin -17625
 			dbmax 30000
-			dbvalue.0 0
-			dbvalue.1 0
+			dbvalue.0 22125
+			dbvalue.1 22125
 		}
 	}
 	control.11 {
@@ -286,26 +286,6 @@ state.sofbytcrrt5651 {
 		}
 	}
 	control.23 {
-		iface CARD
-		name 'Headphone Jack'
-		value true
-		comment {
-			access read
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.24 {
-		iface CARD
-		name 'Headset Mic Jack'
-		value true
-		comment {
-			access read
-			type BOOLEAN
-			count 1
-		}
-	}
-	control.25 {
 		iface MIXER
 		name 'RECMIXL INL1 Switch'
 		value true
@@ -315,7 +295,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.26 {
+	control.24 {
 		iface MIXER
 		name 'RECMIXL BST3 Switch'
 		value false
@@ -325,7 +305,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.27 {
+	control.25 {
 		iface MIXER
 		name 'RECMIXL BST2 Switch'
 		value false
@@ -335,7 +315,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.28 {
+	control.26 {
 		iface MIXER
 		name 'RECMIXL BST1 Switch'
 		value false
@@ -345,7 +325,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.29 {
+	control.27 {
 		iface MIXER
 		name 'RECMIXR INR1 Switch'
 		value true
@@ -355,7 +335,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.30 {
+	control.28 {
 		iface MIXER
 		name 'RECMIXR BST3 Switch'
 		value false
@@ -365,7 +345,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.31 {
+	control.29 {
 		iface MIXER
 		name 'RECMIXR BST2 Switch'
 		value false
@@ -375,7 +355,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.32 {
+	control.30 {
 		iface MIXER
 		name 'RECMIXR BST1 Switch'
 		value false
@@ -385,7 +365,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.33 {
+	control.31 {
 		iface MIXER
 		name 'Stereo1 ADC L2 Mux'
 		value 'DD MIX'
@@ -397,7 +377,7 @@ state.sofbytcrrt5651 {
 			item.1 'DD MIX'
 		}
 	}
-	control.34 {
+	control.32 {
 		iface MIXER
 		name 'Stereo1 ADC R2 Mux'
 		value 'DD MIX'
@@ -409,7 +389,7 @@ state.sofbytcrrt5651 {
 			item.1 'DD MIX'
 		}
 	}
-	control.35 {
+	control.33 {
 		iface MIXER
 		name 'Stereo1 ADC L1 Mux'
 		value ADC
@@ -421,7 +401,7 @@ state.sofbytcrrt5651 {
 			item.1 ADC
 		}
 	}
-	control.36 {
+	control.34 {
 		iface MIXER
 		name 'Stereo1 ADC R1 Mux'
 		value ADC
@@ -433,7 +413,7 @@ state.sofbytcrrt5651 {
 			item.1 ADC
 		}
 	}
-	control.37 {
+	control.35 {
 		iface MIXER
 		name 'Stereo2 ADC L2 Mux'
 		value 'DD MIXL'
@@ -445,7 +425,7 @@ state.sofbytcrrt5651 {
 			item.1 'DD MIXL'
 		}
 	}
-	control.38 {
+	control.36 {
 		iface MIXER
 		name 'Stereo2 ADC L1 Mux'
 		value ADCL
@@ -457,7 +437,7 @@ state.sofbytcrrt5651 {
 			item.1 ADCL
 		}
 	}
-	control.39 {
+	control.37 {
 		iface MIXER
 		name 'Stereo2 ADC R1 Mux'
 		value 'DD MIXR'
@@ -469,7 +449,7 @@ state.sofbytcrrt5651 {
 			item.1 ADCR
 		}
 	}
-	control.40 {
+	control.38 {
 		iface MIXER
 		name 'Stereo2 ADC R2 Mux'
 		value 'DMIC R'
@@ -481,7 +461,7 @@ state.sofbytcrrt5651 {
 			item.1 'DD MIXR'
 		}
 	}
-	control.41 {
+	control.39 {
 		iface MIXER
 		name 'Stereo1 ADC MIXL ADC1 Switch'
 		value true
@@ -491,7 +471,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.42 {
+	control.40 {
 		iface MIXER
 		name 'Stereo1 ADC MIXL ADC2 Switch'
 		value false
@@ -501,7 +481,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.43 {
+	control.41 {
 		iface MIXER
 		name 'Stereo1 ADC MIXR ADC1 Switch'
 		value true
@@ -511,7 +491,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.44 {
+	control.42 {
 		iface MIXER
 		name 'Stereo1 ADC MIXR ADC2 Switch'
 		value true
@@ -521,7 +501,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.45 {
+	control.43 {
 		iface MIXER
 		name 'Stereo2 ADC MIXL ADC1 Switch'
 		value true
@@ -531,7 +511,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.46 {
+	control.44 {
 		iface MIXER
 		name 'Stereo2 ADC MIXL ADC2 Switch'
 		value true
@@ -541,7 +521,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.47 {
+	control.45 {
 		iface MIXER
 		name 'Stereo2 ADC MIXR ADC1 Switch'
 		value true
@@ -551,7 +531,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.48 {
+	control.46 {
 		iface MIXER
 		name 'Stereo2 ADC MIXR ADC2 Switch'
 		value true
@@ -561,7 +541,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.49 {
+	control.47 {
 		iface MIXER
 		name 'IF2 ADC'
 		value 'IF1 ADC1'
@@ -573,7 +553,7 @@ state.sofbytcrrt5651 {
 			item.1 'IF1 ADC2'
 		}
 	}
-	control.50 {
+	control.48 {
 		iface MIXER
 		name 'PDM L Mux'
 		value 'DD MIX'
@@ -585,7 +565,7 @@ state.sofbytcrrt5651 {
 			item.1 'Stereo DAC MIX'
 		}
 	}
-	control.51 {
+	control.49 {
 		iface MIXER
 		name 'PDM R Mux'
 		value 'DD MIX'
@@ -597,7 +577,7 @@ state.sofbytcrrt5651 {
 			item.1 'Stereo DAC MIX'
 		}
 	}
-	control.52 {
+	control.50 {
 		iface MIXER
 		name 'DAC MIXL Stereo ADC Switch'
 		value false
@@ -607,7 +587,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.53 {
+	control.51 {
 		iface MIXER
 		name 'DAC MIXL INF1 Switch'
 		value true
@@ -617,7 +597,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.54 {
+	control.52 {
 		iface MIXER
 		name 'DAC MIXR Stereo ADC Switch'
 		value false
@@ -627,7 +607,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.55 {
+	control.53 {
 		iface MIXER
 		name 'DAC MIXR INF1 Switch'
 		value true
@@ -637,7 +617,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.56 {
+	control.54 {
 		iface MIXER
 		name 'DAC L2 Mux'
 		value IF2
@@ -649,7 +629,7 @@ state.sofbytcrrt5651 {
 			item.1 IF2
 		}
 	}
-	control.57 {
+	control.55 {
 		iface MIXER
 		name 'DAC R2 Mux'
 		value IF2
@@ -661,7 +641,7 @@ state.sofbytcrrt5651 {
 			item.1 IF2
 		}
 	}
-	control.58 {
+	control.56 {
 		iface MIXER
 		name 'Stereo DAC MIXL DAC L1 Switch'
 		value true
@@ -671,7 +651,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.59 {
+	control.57 {
 		iface MIXER
 		name 'Stereo DAC MIXL DAC L2 Switch'
 		value false
@@ -681,7 +661,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.60 {
+	control.58 {
 		iface MIXER
 		name 'Stereo DAC MIXL DAC R1 Switch'
 		value false
@@ -691,7 +671,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.61 {
+	control.59 {
 		iface MIXER
 		name 'Stereo DAC MIXR DAC R1 Switch'
 		value true
@@ -701,7 +681,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.62 {
+	control.60 {
 		iface MIXER
 		name 'Stereo DAC MIXR DAC R2 Switch'
 		value false
@@ -711,7 +691,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.63 {
+	control.61 {
 		iface MIXER
 		name 'Stereo DAC MIXR DAC L1 Switch'
 		value false
@@ -721,7 +701,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.64 {
+	control.62 {
 		iface MIXER
 		name 'DD MIXL DAC L1 Switch'
 		value true
@@ -731,7 +711,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.65 {
+	control.63 {
 		iface MIXER
 		name 'DD MIXL DAC L2 Switch'
 		value true
@@ -741,7 +721,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.66 {
+	control.64 {
 		iface MIXER
 		name 'DD MIXL DAC R2 Switch'
 		value false
@@ -751,7 +731,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.67 {
+	control.65 {
 		iface MIXER
 		name 'DD MIXR DAC R1 Switch'
 		value false
@@ -761,7 +741,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.68 {
+	control.66 {
 		iface MIXER
 		name 'DD MIXR DAC R2 Switch'
 		value false
@@ -771,7 +751,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.69 {
+	control.67 {
 		iface MIXER
 		name 'DD MIXR DAC L2 Switch'
 		value false
@@ -781,7 +761,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.70 {
+	control.68 {
 		iface MIXER
 		name 'OUT MIXL BST1 Switch'
 		value false
@@ -791,7 +771,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.71 {
+	control.69 {
 		iface MIXER
 		name 'OUT MIXL BST2 Switch'
 		value false
@@ -801,7 +781,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.72 {
+	control.70 {
 		iface MIXER
 		name 'OUT MIXL INL1 Switch'
 		value false
@@ -811,7 +791,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.73 {
+	control.71 {
 		iface MIXER
 		name 'OUT MIXL REC MIXL Switch'
 		value false
@@ -821,7 +801,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.74 {
+	control.72 {
 		iface MIXER
 		name 'OUT MIXL DAC L1 Switch'
 		value true
@@ -831,7 +811,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.75 {
+	control.73 {
 		iface MIXER
 		name 'OUT MIXR BST2 Switch'
 		value false
@@ -841,7 +821,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.76 {
+	control.74 {
 		iface MIXER
 		name 'OUT MIXR BST1 Switch'
 		value false
@@ -851,7 +831,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.77 {
+	control.75 {
 		iface MIXER
 		name 'OUT MIXR INR1 Switch'
 		value false
@@ -861,7 +841,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.78 {
+	control.76 {
 		iface MIXER
 		name 'OUT MIXR REC MIXR Switch'
 		value false
@@ -871,7 +851,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.79 {
+	control.77 {
 		iface MIXER
 		name 'OUT MIXR DAC R1 Switch'
 		value true
@@ -881,7 +861,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.80 {
+	control.78 {
 		iface MIXER
 		name 'OUTVOL L Switch'
 		value false
@@ -891,7 +871,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.81 {
+	control.79 {
 		iface MIXER
 		name 'OUTVOL R Switch'
 		value false
@@ -901,7 +881,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.82 {
+	control.80 {
 		iface MIXER
 		name 'HPOVOL L Switch'
 		value true
@@ -911,7 +891,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.83 {
+	control.81 {
 		iface MIXER
 		name 'HPOVOL R Switch'
 		value true
@@ -921,7 +901,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.84 {
+	control.82 {
 		iface MIXER
 		name 'HPO MIX DAC1 Switch'
 		value true
@@ -931,7 +911,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.85 {
+	control.83 {
 		iface MIXER
 		name 'HPO MIX HPVOL Switch'
 		value true
@@ -941,7 +921,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.86 {
+	control.84 {
 		iface MIXER
 		name 'LOUT MIX DAC L1 Switch'
 		value true
@@ -951,7 +931,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.87 {
+	control.85 {
 		iface MIXER
 		name 'LOUT MIX DAC R1 Switch'
 		value true
@@ -961,7 +941,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.88 {
+	control.86 {
 		iface MIXER
 		name 'LOUT MIX OUTVOL L Switch'
 		value false
@@ -971,7 +951,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.89 {
+	control.87 {
 		iface MIXER
 		name 'LOUT MIX OUTVOL R Switch'
 		value false
@@ -981,7 +961,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.90 {
+	control.88 {
 		iface MIXER
 		name 'HPO L Playback Switch'
 		value false
@@ -991,7 +971,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.91 {
+	control.89 {
 		iface MIXER
 		name 'HPO R Playback Switch'
 		value false
@@ -1001,7 +981,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.92 {
+	control.90 {
 		iface MIXER
 		name 'LOUT L Playback Switch'
 		value true
@@ -1011,7 +991,7 @@ state.sofbytcrrt5651 {
 			count 1
 		}
 	}
-	control.93 {
+	control.91 {
 		iface MIXER
 		name 'LOUT R Playback Switch'
 		value true
@@ -1019,6 +999,38 @@ state.sofbytcrrt5651 {
 			access 'read write'
 			type BOOLEAN
 			count 1
+		}
+	}
+	control.92 {
+		iface MIXER
+		name 'PGA1.0 Master Playback Volume 1'
+		value.0 24
+		value.1 24
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 32'
+			dbmin -9999999
+			dbmax 0
+			dbvalue.0 -1600
+			dbvalue.1 -1600
+		}
+	}
+	control.93 {
+		iface MIXER
+		name 'PGA2.0 Master Capture Volume 2'
+		value.0 24
+		value.1 24
+		comment {
+			access 'read write'
+			type INTEGER
+			count 2
+			range '0 - 32'
+			dbmin -9999999
+			dbmax 0
+			dbvalue.0 -1600
+			dbvalue.1 -1600
 		}
 	}
 }
