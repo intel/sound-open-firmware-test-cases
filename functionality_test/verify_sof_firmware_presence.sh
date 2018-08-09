@@ -1,7 +1,7 @@
 #!/bin/sh
 
 MOD_VER=`lscpu |grep "Model name" |awk -F " " '{print $6}'`
-if [ $MOD_VER == "E3826" ]; then
+if [ $MOD_VER == "E3826" ] || [ $MOD_VER == "E3845" ]; then
 	PLATFORM="byt"
 elif [ $MOD_VER == "A3960" ] || [ $MOD_VER == "N4200" ]; then
 	PLATFORM="apl"
