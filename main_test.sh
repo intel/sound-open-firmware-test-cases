@@ -13,7 +13,7 @@ FIRMWARE_PATH="/lib/firmware/intel"
 
 SSP=ssp2
 MODE=I2S
-PIPELINE=passthrough
+PIPELINE=volume
 FORMAT_INPUT=s16le
 FORMAT_OUTPUT=s16le
 RATE=48k
