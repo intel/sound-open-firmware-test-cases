@@ -28,21 +28,25 @@ get_platform() {
 	if [ $MOD_VER == "E3826" ] || [ $MOD_VER == "E3845" ]; then
 		PLATFORM="byt"
 		MACHINE="minnow"
+		alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 		feature_test_common_list
 	elif [ $MOD_VER == "A3960" ]; then
 		PLATFORM="apl"
 		MACHINE="gp"
 		MCLK=24576k
+		alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 		feature_test_common_list
 	elif [ $MOD_VER == "N4200" ]; then
 		PLATFORM="apl"
 		MACHINE="up"
                 MCLK=24576k
+		alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 		feature_test_common_list
 	elif [ $MOD_VER == "0000" ]; then
 		PLATFORM="cnl"
 		MACHINE="cnl"
 		MCLK=24000k
+		alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 		feature_test_common_list
 	else
 		echo "no matched platform, please confirm it"
@@ -147,7 +151,6 @@ run_test() {
 
 function main(){
         sleep 5
-	alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
 	get_platform
 }
 #Audio CI call main function for testing
