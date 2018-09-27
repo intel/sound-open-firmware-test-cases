@@ -1,13 +1,12 @@
 #!/bin/bash
-if [ -f sof_test.log ]; then
-	rm -rf sof_test.log
-fi
 
 CURRENT_PATH=`pwd`
 FEATURE_PASS=0
 FEATURE_CNT=0
 TEST_TYPE="functionality_test"
 FIRMWARE_PATH="/lib/firmware/intel"
+DATE=`date +%Y_%m_%d_%H_%M`
+TEST_STATUS="test-status"
 
 # default tplg
 
@@ -19,34 +18,73 @@ FORMAT_OUTPUT=s16le
 RATE=48k
 MCLK=19200k
 CODEC=codec
+para=$1
+
+# reset the test status
+reset_status() {
+	echo "new" > $TEST_STATUS/test_status
+	echo "1" > $TEST_STATUS/tplg
+	get_platform
+}
 
 # get platform info
-
 get_platform() {
 
 	MOD_VER=`lscpu |grep "Model name" |awk -F " " '{print $6}'`
 	if [ $MOD_VER == "E3826" ] || [ $MOD_VER == "E3845" ]; then
 		PLATFORM="byt"
 		MACHINE="minnow"
-		feature_test_common_list
+		check_status
 	elif [ $MOD_VER == "A3960" ]; then
 		PLATFORM="apl"
 		MACHINE="gp"
 		MCLK=24576k
-		feature_test_common_list
+		check_status
 	elif [ $MOD_VER == "N4200" ]; then
 		PLATFORM="apl"
 		MACHINE="up"
                 MCLK=24576k
-		feature_test_common_list
+		check_status
 	elif [ $MOD_VER == "0000" ]; then
 		PLATFORM="cnl"
 		MACHINE="cnl"
 		MCLK=24000k
-		feature_test_common_list
+		check_status
 	else
 		echo "no matched platform, please confirm it"
 		exit 1
+	fi
+}
+
+check_status () {
+	tplg_max=`awk 'END{print NR}' ./$PLATFORM/$MACHINE/tplg`
+	if [ -f $TEST_STATUS/test_status ]; then
+		status=`cat $TEST_STATUS/test_status |awk -F ' ' '{print $1}'`
+		if [ $status == "new" ]; then
+			test_report=report/$DATE-$PLATFORM
+			echo $test_report > $TEST_STATUS/report
+			tplg_num=1
+			echo $tplg_num > $TEST_STATUS/tplg
+			feature_test_common_list
+		elif [ $status == "continue" ]; then
+			test_report=`cat $TEST_STATUS/report |awk -F ' ' '{print $1}'`
+			run_test
+		elif [ $status == "done" ]; then
+			echo "new" > $TEST_STATUS/test_status
+			check_status
+		fi
+	else
+		read -p  "Unable to get the test status, do you want to reset the test: Y/N?" answer
+		case $answer in
+		Y | y)
+			reset_status;;
+		N | n)
+			echo "Test Exit"
+			exit 0;;
+		*)
+		echo "error choice"
+		check_status;;
+		esac
 	fi
 }
 
@@ -63,10 +101,10 @@ feature_test () {
 			TEST_CASE=`echo $line|awk -F " " '{ print $1}'`
         		if [[ $line =~ FAIL ]]; then
 				echo "$TEST_CASE FAIL"
-				echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/sof_test.log
+				echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/$test_report
         		else
 				echo "$TEST_CASE PASS"
-				echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/sof_test.log
+				echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/$test_report
         		fi
 		done
 	else			 
@@ -74,10 +112,10 @@ feature_test () {
 		if [ $? -eq 0 ]; then
 			FEATURE_PASS=$((FEATURE_PASS+1))
 			echo "$TEST_CASE PASS"
-			echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/sof_test.log
+			echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/$test_report
 		else
 			echo "$TEST_CASE FAIL"
-			echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/sof_test.log
+			echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/$test_report
 		fi
 	fi
 	sleep 2
@@ -85,7 +123,7 @@ feature_test () {
 
 feature_test_common_list(){
 
-	echo "now is doing the common test on $PLATFORM" >> $CURRENT_PATH/sof_test.log
+	echo "now is doing the common test on $PLATFORM" >> $CURRENT_PATH/$test_report
 	while read line
 	do
 		feature_test $line
@@ -95,60 +133,106 @@ feature_test_common_list(){
 	run_test
 }
 
+switch_tplg() {
+
+	# get next tplg name
+	tplg_num=`cat $TEST_STATUS/tplg |awk -F ' ' '{print $1}'`
+	tplg_next=$(($tplg_num + 1))
+	if [ $tplg_next -gt $tplg_max ]; then
+		echo "Done the test for all supported topologies"
+		echo "done" > $TEST_STATUS/test_status
+		exit 0
+	fi
+
+	tplg_name=`sed -n ${tplg_next}p ./$PLATFORM/$MACHINE/tplg`
+	echo "continue" > $TEST_STATUS/test_status
+	echo $tplg_next > $TEST_STATUS/tplg
+
+	# relink the tplg
+	if [ $PLATFORM == "byt" -a $MACHINE == "minnow" ]; then
+		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-rt5651.tplg
+	elif [ $PLATFORM == "apl" -a $MACHINE == "gp" ]; then
+		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
+	elif [ $PLATFORM == "apl" -a  $MACHINE == "up" ]; then
+		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
+	else
+		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM.tplg
+	fi
+	# system will auto reboot for another tplg test
+	sleep 2
+	sudo reboot
+}
+
 feature_test_list() {
 	tplg_file=`find $FIRMWARE_PATH -name "sof-*.tplg"`
 	link_path=`readlink $tplg_file`
 	link_file=${link_path##*/}
 
-	echo "now is testing $link_file" >> $CURRENT_PATH/sof_test.log
+	echo "now is testing $link_file" >> $CURRENT_PATH/$test_report
 	while read line
 	do
 		feature_test $line
 	done < ./$PLATFORM/$MACHINE/feature-test
+	switch_tplg
 }
 
 run_test() {
+	#get tplg
+	tplg_num=`cat $TEST_STATUS/tplg |awk -F ' ' '{print $1}'`
+	tplg_name=`sed -n ${tplg_num}p ./$PLATFORM/$MACHINE/tplg`
 
-	feature_test_list # run default tplg first
-	while read line
-	do
-		# parse the tplg
-		SSP=`echo $line |awk -F "-" '{print $2}'`
-		MODE=`echo $line |awk -F "-" '{print $5}'`
-		PIPELINE=`echo $line |awk -F "-" '{print $6}'`
-		FORMAT_INPUT=`echo $line |awk -F "-" '{print $7}'`
-		FORMAT_OUTPUT=`echo $line |awk -F "-" '{print $8}'`
-		RATE=`echo $line |awk -F "-" '{print $9}'`
-		MCLK=`echo $line |awk -F "-" '{print $10}'`
-		CODEC=`echo $line |awk -F "-" '{print $11}'`
+	# parse the tplg
+	SSP=`echo $tplg_name |awk -F "-" '{print $2}'`
+	MODE=`echo $tplg_name |awk -F "-" '{print $5}'`
+	PIPELINE=`echo $tplg_name |awk -F "-" '{print $6}'`
+	FORMAT_INPUT=`echo $tplg_name |awk -F "-" '{print $7}'`
+	FORMAT_OUTPUT=`echo $tplg_name |awk -F "-" '{print $8}'`
+	RATE=`echo $tplg_name |awk -F "-" '{print $9}'`
+	MCLK=`echo $tplg_name |awk -F "-" '{print $10}'`
+	CODEC=`echo $tplg_name |awk -F "-" '{print $11}'`
 
-		# relink the tplg
-		if [ $PLATFORM == "byt" -a $MACHINE == "minnow" ]; then
-			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-rt5651.tplg
-		elif [ $PLATFORM == "apl" -a $MACHINE == "gp" ]; then
-			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
-		elif [ $PLATFORM == "apl" -a  $MACHINE == "up" ]; then
-			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
-		else
-			ln -fs $FIRMWARE_PATH/topology/$line $FIRMWARE_PATH/sof-$PLATFORM.tplg
-		fi
+	# run test cases for specfied tplg
+	alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
+	feature_test_list # run tplg test
+}
 
-		feature_test loadable_DSP_modules modules_reload
-		if [[ $? == 0 ]]; then
-			sleep 10
-			alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
-			feature_test_list
-		else
-			echo "modules reload failed on $SSP-$MODE-"$FORMAT_INPUT"-"$FORMAT_INPUT"-$RATE-$MCLK-$CODEC tplg" >> $CURRENT_PATH/sof_test.log
-		fi
-	done < ./$PLATFORM/$MACHINE/tplg
+switch_tplg() {
 
+	# get next tplg name
+	tplg_next=$(($tplg_num + 1))
+	if [ $tplg_next -gt $tplg_max ]; then
+		echo "Done the test for all supported topologies"
+		echo "done" > $TEST_STATUS/test_status
+		exit 0
+	fi
+
+	tplg_name=`sed -n ${tplg_next}p ./$PLATFORM/$MACHINE/tplg`
+	echo "continue" > $TEST_STATUS/test_status
+	echo $tplg_next > $TEST_STATUS/tplg
+
+	# relink the tplg
+	if [ $PLATFORM == "byt" -a $MACHINE == "minnow" ]; then
+		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-rt5651.tplg
+	elif [ $PLATFORM == "apl" -a $MACHINE == "gp" ]; then
+		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
+	elif [ $PLATFORM == "apl" -a  $MACHINE == "up" ]; then
+		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
+	else
+		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM.tplg
+	fi
+	# system will auto reboot for another tplg test
+	sleep 2
+	sudo reboot
 }
 
 function main(){
         sleep 5
-	alsactl restore -f $CURRENT_PATH/asound_state/$PLATFORM/asound.state.$PIPELINE # alsa setting
+
+	if [ "$para" == "-r" ]; then
+		reset_status
+	fi
 	get_platform
 }
+
 #Audio CI call main function for testing
-#main
+main

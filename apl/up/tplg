@@ -1,11 +1,3 @@
 test-ssp5-mclk-0-DSP_A-volume-s16le-s16le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-DSP_B-volume-s24le-s24le-48k-24576k-nocodec.tplg
 test-ssp5-mclk-0-LEFT_J-volume-s32le-s32le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-I2S-volume-s16le-s24le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-I2S-volume-s16le-s32le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-I2S-volume-s24le-s16le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-I2S-volume-s24le-s24le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-I2S-volume-s24le-s32le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-I2S-volume-s32le-s16le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-I2S-volume-s32le-s24le-48k-24576k-nocodec.tplg
-test-ssp5-mclk-0-I2S-volume-s32le-s32le-48k-24576k-nocodec.tplg
+test-ssp5-mclk-0-I2S-volume-s16le-s16le-48k-24576k-nocodec.tplg

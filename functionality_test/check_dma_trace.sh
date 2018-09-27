@@ -1,5 +1,5 @@
 # check dma trace output
-rmbox -t > rmbox.log & sleep 2 ; pkill -9 rmbox
+sudo rmbox -t > rmbox.log & sleep 2 ; pkill -9 rmbox
 # get size of trace log
 size=`du -k rmbox.log |awk '{print $1}'`
 
