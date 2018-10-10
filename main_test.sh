@@ -6,7 +6,6 @@ FEATURE_CNT=0
 TEST_TYPE="functionality_test"
 FIRMWARE_PATH="/lib/firmware/intel"
 DATE=`date +%Y_%m_%d_%H_%M`
-TEST_STATUS="test-status"
 
 # default tplg
 
@@ -22,8 +21,11 @@ para=$1
 
 # reset the test status
 reset_status() {
-	echo "new" > $TEST_STATUS/test_status
-	echo "1" > $TEST_STATUS/tplg
+	if [ ! -d "test_status" ]; then
+		mkdir test_status
+	fi
+	echo "new" > test_status/status
+	echo "1" > test_status/tplg
 	get_platform
 }
 
@@ -58,19 +60,22 @@ get_platform() {
 
 check_status () {
 	tplg_max=`awk 'END{print NR}' ./$PLATFORM/$MACHINE/tplg`
-	if [ -f $TEST_STATUS/test_status ]; then
-		status=`cat $TEST_STATUS/test_status |awk -F ' ' '{print $1}'`
+	if [ -f test_status/status ]; then
+		status=`cat test_status/status |awk -F ' ' '{print $1}'`
 		if [ $status == "new" ]; then
+			if [ ! -d "report" ]; then
+				mkdir report
+			fi
 			test_report=report/$DATE-$PLATFORM
-			echo $test_report > $TEST_STATUS/report
+			echo $test_report > test_status/report
 			tplg_num=1
-			echo $tplg_num > $TEST_STATUS/tplg
+			echo $tplg_num > test_status/tplg
 			feature_test_common_list
 		elif [ $status == "continue" ]; then
-			test_report=`cat $TEST_STATUS/report |awk -F ' ' '{print $1}'`
+			test_report=`cat test_status/report |awk -F ' ' '{print $1}'`
 			run_test
 		elif [ $status == "done" ]; then
-			echo "new" > $TEST_STATUS/test_status
+			echo "new" > test_status/status
 			check_status
 		fi
 	else
@@ -101,10 +106,10 @@ feature_test () {
 			TEST_CASE=`echo $line|awk -F " " '{ print $1}'`
         		if [[ $line =~ FAIL ]]; then
 				echo "$TEST_CASE FAIL"
-				echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/$test_report
+				echo "testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/$test_report
         		else
 				echo "$TEST_CASE PASS"
-				echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/$test_report
+				echo "testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/$test_report
         		fi
 		done
 	else			 
@@ -112,10 +117,10 @@ feature_test () {
 		if [ $? -eq 0 ]; then
 			FEATURE_PASS=$((FEATURE_PASS+1))
 			echo "$TEST_CASE PASS"
-			echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/$test_report
+			echo "testcase_"$TEST_CASE" testtype_"$TEST_TYPE" PASS" >> $CURRENT_PATH/$test_report
 		else
 			echo "$TEST_CASE FAIL"
-			echo "testsuite_"$TEST_SUIT" testsuite_"$TEST_SUIT"_testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/$test_report
+			echo "testcase_"$TEST_CASE" testtype_"$TEST_TYPE" FAIL" >> $CURRENT_PATH/$test_report
 		fi
 	fi
 	sleep 2
