@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check capture devices with Audio Legacy
 arecord -l |grep "device"> /dev/null
