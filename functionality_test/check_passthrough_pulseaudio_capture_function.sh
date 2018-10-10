@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Check capture function
 ps -aux |grep pulseaudio
 if [ $? != 0 ]; then

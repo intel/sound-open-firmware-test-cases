@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Estimate firmware loaded time
 t2=`dmesg | grep "firmware boot complete" | awk -F"[" '{print $2}' | awk -F"]" '{print $1}'`

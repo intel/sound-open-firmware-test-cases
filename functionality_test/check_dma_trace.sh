@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # check dma trace output
 sudo rmbox -t > rmbox.log & sleep 2 ; pkill -9 rmbox
 # get size of trace log

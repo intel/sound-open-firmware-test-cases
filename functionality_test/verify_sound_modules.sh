@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Verify DSP sound modules are loaded
 lsmod | grep -i snd_soc > /dev/null

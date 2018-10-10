@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Verify DSP firmware is loaded
 #dmesg | grep "FW loaded" > /dev/null

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Check playback function
 /usr/bin/pulseaudio --system &
 sleep 10

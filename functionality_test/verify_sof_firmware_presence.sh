@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 MOD_VER=`lscpu |grep "Model name" |awk -F " " '{print $6}'`
 if [ $MOD_VER == "E3826" ] || [ $MOD_VER == "E3845" ]; then

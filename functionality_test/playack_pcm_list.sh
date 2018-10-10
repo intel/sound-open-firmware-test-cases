@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check playback PCM list
 aplay -l > /dev/null

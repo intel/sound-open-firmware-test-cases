@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #check playback after modules reloaded
 pkill -9 alsabat
 sleep 2

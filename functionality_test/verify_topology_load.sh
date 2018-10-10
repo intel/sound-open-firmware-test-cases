@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Verify DSP topology loading
 dmesg | grep "loading topology" > /dev/null

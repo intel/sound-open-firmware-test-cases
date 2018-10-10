@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Check playback pcm list.
 aplay -l |grep "device"> /dev/null

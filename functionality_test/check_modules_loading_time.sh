@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # reloading the audio modules
 criterion_time=50
 

@@ -1,3 +1,5 @@
+#!bin/bash
+
 # channel test for low latency 
 rm -rf playback.log
 

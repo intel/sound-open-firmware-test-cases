@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Verify DSP topology loading
 dmesg | grep "Firmware info" > /dev/null

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Verify DSP firmware is loaded
 firmware_version=0.9

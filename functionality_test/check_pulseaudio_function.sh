@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Check playback function
 rm -rf playback.log
 #inputsample=(8000 11025 12000 16000 18900 22050 24000 32000 44100 48000 64000 88200 96000 176400 192000)

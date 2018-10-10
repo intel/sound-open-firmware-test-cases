@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Check line in/out function
 rm -rf playback.log
 RATE=$1
