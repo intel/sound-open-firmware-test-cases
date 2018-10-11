@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check line in/out function
-rm -rf playback.log
+rm -rf playback.result
 RATE=$1
 if [ $RATE == "48K" ]; then
 	RATE=48000
@@ -25,9 +25,9 @@ sleep 2
 alsabat -D hw:0,0 -r $RATE -c 2 -f $FORMAT -F 1500
 	if [ $? != 0 ]; then
 		echo "Fail: line in/out mode playback test failed."
-		echo "Check_"$PIPELINE_TYPE"_line_in_out_"$RATE"_"$FORMAT"_playback FAIL" >> playback.log
+		echo "Check_"$PIPELINE_TYPE"_line_in_out_"$RATE"_"$FORMAT"_playback FAIL" >> playback.result
 		exit 1
 	else
-		echo "Check_"$PIPELINE_TYPE"_line_in_out_"$RATE"_"$FORMAT"_playback PASS" >> playback.log
+		echo "Check_"$PIPELINE_TYPE"_line_in_out_"$RATE"_"$FORMAT"_playback PASS" >> playback.result
 		exit 0
 	fi

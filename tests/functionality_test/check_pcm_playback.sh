@@ -3,7 +3,7 @@
 # Check playback function
 FREQ=("17" "31" "67" "131" "257" "521" "997" "1033" "2069" "4139" "8273" "16547")
 
-rm -rf playback.log
+rm -rf playback.result
 RATE=$1
 if [ $RATE == "48k" ]; then
 	RATE=48000
@@ -27,10 +27,10 @@ do
 	alsabat -D hw:0,0 -r $RATE -c 2 -f $FORMAT -F $freq
 		if [ $? != 0 ]; then
 			echo "Fail: playback failed with "$PIPELINE_TYPE" pipeline."
-			echo "Check_"$PIPELINE_TYPE"_Playback_"$RATE"_format_"$FORMAT"_freq_"$freq" FAIL" >> playback.log
+			echo "Check_"$PIPELINE_TYPE"_Playback_"$RATE"_format_"$FORMAT"_freq_"$freq" FAIL" >> playback.result
 		else
-			echo "Check_"$PIPELINE_TYPE"_Playback_"$RATE"_format_"$FORMAT"_freq_"$freq" PASS" >> playback.log
-			echo "Check_"$PIPELINE_TYPE"_Capture_"$RATE"_format_"$FORMAT"_freq_"$freq" PASS" >> playback.log
+			echo "Check_"$PIPELINE_TYPE"_Playback_"$RATE"_format_"$FORMAT"_freq_"$freq" PASS" >> playback.result
+			echo "Check_"$PIPELINE_TYPE"_Capture_"$RATE"_format_"$FORMAT"_freq_"$freq" PASS" >> playback.result
 		fi
 done
 
