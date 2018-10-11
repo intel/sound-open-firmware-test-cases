@@ -28,8 +28,6 @@ switch_tplg() {
 	# relink the tplg
 	if [ $PLATFORM == "byt" -a $MACHINE == "minnow" ]; then
 		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-rt5651.tplg
-	elif [ $PLATFORM == "apl" -a $MACHINE == "gp" ]; then
-		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
 	elif [ $PLATFORM == "apl" -a  $MACHINE == "up" ]; then
 		sudo ln -fs $FIRMWARE_PATH/topology/$tplg_name $FIRMWARE_PATH/sof-$PLATFORM-nocodec.tplg
 	else
@@ -168,12 +166,6 @@ get_platform() {
 		PLATFORM="byt"
 		MACHINE="minnow"
 		def_tplg="sof-byt.tplg"
-		check_status
-	elif [ $MOD_VER == "A3960" ]; then
-		PLATFORM="apl"
-		MACHINE="gp"
-		MCLK=24576k
-		def_tplg="sof-apl-nocodec.tplg"
 		check_status
 	elif [ $MOD_VER == "N4200" ]; then
 		PLATFORM="apl"
