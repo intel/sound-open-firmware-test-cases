@@ -25,13 +25,13 @@ switch_tplg() {
 	tplg_next=$(($tplg_num + 1))
 	if [ $tplg_next -gt $tplg_max ]; then
 		echo "Done the test for all supported topologies"
-		echo "done" > $TEST_STATUS/test_status
+		echo "done" > test_status/status
 		exit 0
 	fi
 
 	tplg_name=`sed -n ${tplg_next}p ./$PLATFORM/$MACHINE/tplg`
-	echo "continue" > $TEST_STATUS/test_status
-	echo $tplg_next > $TEST_STATUS/tplg
+	echo "continue" > test_status/status
+	echo $tplg_next > test_status/tplg
 
 	# relink the tplg
 	if [ $PLATFORM == "byt" -a $MACHINE == "minnow" ]; then
@@ -63,7 +63,7 @@ feature_test_list() {
 
 run_test() {
 	#get tplg
-	tplg_num=`cat $TEST_STATUS/tplg |awk -F ' ' '{print $1}'`
+	tplg_num=`cat test_status/tplg |awk -F ' ' '{print $1}'`
 	tplg_name=`sed -n ${tplg_num}p ./$PLATFORM/$MACHINE/tplg`
 
 	# parse the tplg
